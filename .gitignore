@@ -1,0 +1,17 @@
+# Dependencias
+node_modules/
+
+# Base de datos local (cada instalacion tiene la suya)
+data/
+*.db
+*.db-shm
+*.db-wal
+
+# Logs
+*.log
+
+# Build temporal / IDE
+client/.vite/
+.DS_Store
+Thumbs.db
+.vscode/
