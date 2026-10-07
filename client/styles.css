@@ -106,8 +106,13 @@ input, select, textarea { font-family: inherit; }
   padding: 11px 12px; border-radius: 9px; font-size: 13.5px; font-weight: 600;
 }
 .task-menu button:hover { background: var(--panel2); }
-.task-menu button.on { background: var(--brand); color: #fff; }
-.task-menu .ic { width: 18px; height: 18px; flex-shrink: 0; }
+    .task-menu button.on { background: var(--brand); color: #fff; }
+    .task-menu .ic { width: 18px; height: 18px; flex-shrink: 0; }
+    .task-menu .task-salir {
+      color: var(--bad); border-top: 1px solid var(--line);
+      border-radius: 0 0 9px 9px; margin-top: 2px;
+    }
+    .task-menu .task-salir:hover { background: color-mix(in srgb, var(--bad) 12%, transparent); }
 
 /* Subpestinas internas (Inventario, Config) */
 .subtabs {
@@ -265,8 +270,9 @@ input, select, textarea { font-family: inherit; }
 
 /* ── Pedidos en vivo ─────────────────────────────────────── */
 .vivo-top {
-  display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px;
-}
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px;
+    }
+    .vivo-act { display: flex; align-items: center; gap: 10px; }
 .vivo-stats { display: flex; gap: 10px; flex-wrap: wrap; flex: 1; }
 .vivo-stat {
   background: var(--panel); border: 1px solid var(--line); border-radius: 14px;

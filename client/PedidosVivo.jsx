@@ -32,13 +32,18 @@ export default function PedidosVivo({ irA }) {
   const [abiertos, setAbiertos] = useState([]);
   const [items, setItems] = useState([]);
   const [, setTick] = useState(0);
+  const [cargando, setCargando] = useState(false);
+  const [ultima, setUltima] = useState(null);
   const [err, setErr] = useState('');
 
   const cargar = useCallback(() => {
-    api('/api/mesas')
-      .then((r) => { setMesas(r.mesas || []); setAbiertos(r.abiertos || []); setErr(''); })
-      .catch((e) => setErr(e.message || 'Sin conexion con el servidor'));
-    api('/api/cocina').then((r) => setItems(r.items || [])).catch(() => {});
+    setCargando(true);
+    Promise.all([
+      api('/api/mesas')
+        .then((r) => { setMesas(r.mesas || []); setAbiertos(r.abiertos || []); setErr(''); })
+        .catch((e) => { setErr(e.message || 'Sin conexion con el servidor'); }),
+      api('/api/cocina').then((r) => setItems(r.items || [])).catch(() => {}),
+    ]).finally(() => { setCargando(false); setUltima(new Date()); });
   }, []);
 
   useEffect(() => {
@@ -81,7 +86,10 @@ export default function PedidosVivo({ irA }) {
             <div className="v ok">{libres}</div>
           </div>
         </div>
-        <button className="btn sec sm" onClick={cargar}>Actualizar</button>
+        <div className="vivo-act">
+          {ultima && <span className="hint">Actualizado {ultima.toLocaleTimeString('es-PE')}</span>}
+          <button className="btn sec sm" onClick={cargar} disabled={cargando}>{cargando ? 'Actualizando…' : 'Actualizar'}</button>
+        </div>
       </div>
 
       {err && <div className="login-err">{err}</div>}

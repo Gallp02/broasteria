@@ -111,13 +111,11 @@ export default function App({ user, onLogout }) {
 
         <button className="btn sec sm salir" onClick={salir}>Salir</button>
 
-        {esJefe && (
-          <button className="menu-btn" onClick={() => setMenu((v) => !v)} aria-label="Mas vistas">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-              <path d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        )}
+        <button className="menu-btn" onClick={() => setMenu((v) => !v)} aria-label="Menu">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
       </header>
 
       <nav className="taskbar">
@@ -126,14 +124,21 @@ export default function App({ user, onLogout }) {
         {globales.map(boton)}
       </nav>
 
-      {menu && esJefe && (
+      {menu && (
         <div className="task-menu" onClick={() => setMenu(false)}>
-          {globales.map((p) => (
+          {pestanas.map((p) => (
             <button key={p.id} className={vista === p.id ? 'on' : ''} onClick={() => { setVista(p.id); setMenu(false); }}>
               <Icono nombre={p.icon} />
               <span>{p.label}</span>
             </button>
           ))}
+          <button className="task-salir" onClick={salir}>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <path d="M16 17l5-5-5-5M21 12H9" />
+            </svg>
+            <span>Salir</span>
+          </button>
         </div>
       )}
 
